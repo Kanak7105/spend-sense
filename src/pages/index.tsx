@@ -44,7 +44,7 @@ export default function LandingPage() {
       </header>
 
       <main className="mx-auto flex w-full max-w-6xl flex-1 flex-col items-center px-4 py-16 text-center md:py-24">
-        <h1 className="max-w-3xl text-4xl font-bold tracking-tight text-balance md:text-6xl">
+        <h1 className="max-w-3xl font-display text-4xl font-bold text-balance md:text-6xl">
           Know where your money goes.
         </h1>
         <p className="mt-4 max-w-xl text-lg text-pretty text-muted-foreground">
@@ -62,7 +62,10 @@ export default function LandingPage() {
 
         <div className="mt-20 grid w-full gap-4 text-left sm:grid-cols-2 lg:grid-cols-4">
           {features.map(({ icon: Icon, title, body }) => (
-            <div key={title} className="rounded-xl border bg-card p-5">
+            <div
+              key={title}
+              className="rounded-sm border border-l-2 border-l-margin-rule bg-card p-5"
+            >
               <Icon className="size-6 text-primary" />
               <h2 className="mt-3 font-semibold">{title}</h2>
               <p className="mt-1 text-sm text-muted-foreground">{body}</p>

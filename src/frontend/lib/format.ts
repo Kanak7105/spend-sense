@@ -19,6 +19,12 @@ export function formatMoney(amount: number, opts: { compact?: boolean } = {}) {
   return (opts.compact ? inrCompact : inr).format(amount);
 }
 
+/** Hero totals in ledger style: "₹24,860/-" for whole rupees, "₹24,860.50" otherwise. */
+export function formatHeroMoney(amount: number) {
+  const text = inr.format(amount);
+  return text.endsWith(".00") ? `${text.slice(0, -3)}/-` : text;
+}
+
 /** `date` is a Postgres `date` string (YYYY-MM-DD). */
 export function formatDay(date: string) {
   const d = parseISO(date);

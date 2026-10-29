@@ -21,7 +21,7 @@ export function BottomNav() {
         key={href}
         href={href}
         aria-current={active ? "page" : undefined}
-        className={cn(tabClass, active && "text-primary")}
+        className={cn(tabClass, active && "text-sidebar-primary")}
       >
         <Icon className="size-5" />
         {label}
@@ -30,14 +30,14 @@ export function BottomNav() {
   };
 
   return (
-    <nav className="fixed inset-x-0 bottom-0 z-40 border-t bg-background/95 pb-[env(safe-area-inset-bottom)] backdrop-blur md:hidden">
+    <nav className="shell fixed inset-x-0 bottom-0 z-40 border-t-2 border-dashed bg-sidebar pb-[env(safe-area-inset-bottom)] text-sidebar-foreground md:hidden">
       <div className="flex items-center">
         {tabs.slice(0, 2).map(tab)}
         <div className="flex flex-1 justify-center">
           <Link
             href="/transactions?new=1"
             aria-label="Add transaction"
-            className="-mt-6 flex size-14 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-lg ring-4 ring-background"
+            className="-mt-6 flex size-14 items-center justify-center rounded-full bg-sidebar-primary text-sidebar-primary-foreground ring-4 ring-sidebar"
           >
             <Plus className="size-6" />
           </Link>

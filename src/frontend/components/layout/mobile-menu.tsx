@@ -28,12 +28,16 @@ export function MobileMenu({ viewer }: { viewer: Viewer }) {
       </SheetTrigger>
       <SheetContent
         side="left"
-        className="w-72 gap-0 bg-sidebar p-4 pb-[calc(env(safe-area-inset-bottom)+1rem)]"
+        className="shell w-72 gap-0 border-r-2 border-dashed bg-sidebar p-4 pb-[calc(env(safe-area-inset-bottom)+1rem)] text-sidebar-foreground"
       >
         <SheetTitle className="sr-only">Menu</SheetTitle>
         <SheetDescription className="sr-only">All sections of SpendSense</SheetDescription>
-        <Logo href="/dashboard" className="px-2" />
-        <div className="mt-8 flex-1 overflow-y-auto">
+        <span
+          aria-hidden
+          className="pointer-events-none absolute inset-y-3 left-1.5 border-l-2 border-dashed"
+        />
+        <Logo href="/dashboard" className="px-2" surface="shell" />
+        <div className="mt-8 -mr-4 flex-1 overflow-x-hidden overflow-y-auto pr-4">
           <SidebarNav onNavigate={() => setOpen(false)} />
         </div>
         <div className="border-t pt-4">

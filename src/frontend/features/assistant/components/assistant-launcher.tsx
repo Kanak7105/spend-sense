@@ -13,7 +13,7 @@ export function AssistantLauncher() {
     <Button
       asChild
       size="icon-lg"
-      className="fixed right-4 bottom-24 z-40 size-12 rounded-full shadow-lg md:right-8 md:bottom-8"
+      className="fixed right-4 bottom-24 z-40 size-12 rounded-full border-2 border-sidebar-primary md:right-8 md:bottom-8"
     >
       <Link href="/assistant" aria-label="Ask SpendSense">
         <Sparkles className="size-5" />

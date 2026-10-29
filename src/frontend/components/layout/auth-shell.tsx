@@ -37,7 +37,7 @@ export function AuthCard({
     <div className="flex flex-col gap-4">
       <Card>
         <CardHeader className="text-center">
-          <CardTitle className="text-xl">{title}</CardTitle>
+          <CardTitle className="font-display text-2xl font-bold">{title}</CardTitle>
           <CardDescription>{description}</CardDescription>
         </CardHeader>
         <CardContent>{children}</CardContent>

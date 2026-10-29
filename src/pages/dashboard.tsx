@@ -54,7 +54,7 @@ const DashboardPage: PageWithLayout<Props> = ({ insights, accounts, recent }) =>
       <PageTitle title="Dashboard" />
       <div className="mb-6 flex flex-wrap items-end justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-semibold tracking-tight">Dashboard</h1>
+          <h1 className="font-display text-3xl font-bold">Dashboard</h1>
           <p className="mt-1 text-sm text-muted-foreground">Your money at a glance.</p>
         </div>
         <div className="flex flex-wrap items-center gap-2">
@@ -79,10 +79,9 @@ const DashboardPage: PageWithLayout<Props> = ({ insights, accounts, recent }) =>
           against={period.month ? "last month" : `previous ${periodDays(period)} days`}
         />
 
-        <AssistantCard />
-
-        <div className="grid gap-6 lg:grid-cols-5">
-          <Card className="lg:col-span-3">
+        {/* One 12-column grid on desktop; on mobile the assistant stays under the tiles. */}
+        <div className="grid gap-6 lg:grid-cols-12">
+          <Card className="lg:col-span-7 xl:col-span-8">
             <CardHeader>
               <CardTitle>Income vs expenses</CardTitle>
               <p className="text-sm text-muted-foreground">
@@ -93,7 +92,7 @@ const DashboardPage: PageWithLayout<Props> = ({ insights, accounts, recent }) =>
               <TrendChart data={insights.trend} />
             </CardContent>
           </Card>
-          <Card className="lg:col-span-2">
+          <Card className="lg:col-span-5 xl:col-span-4">
             <CardHeader>
               <CardTitle>Where it went</CardTitle>
               <p className="text-sm text-muted-foreground">Spending by category · {label}</p>
@@ -102,27 +101,28 @@ const DashboardPage: PageWithLayout<Props> = ({ insights, accounts, recent }) =>
               <CategoryDonut categories={insights.categories} />
             </CardContent>
           </Card>
-        </div>
 
-        <Card>
-          <CardHeader>
-            <CardTitle>Daily spending</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <SpendingHeatmap heatmap={insights.heatmap} />
-          </CardContent>
-        </Card>
+          <Card className="lg:col-span-7">
+            <CardHeader>
+              <CardTitle>Daily spending</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <SpendingHeatmap heatmap={insights.heatmap} />
+            </CardContent>
+          </Card>
+          <div className="-order-1 *:h-full lg:order-none lg:col-span-5">
+            <AssistantCard />
+          </div>
 
-        <div className="grid gap-6 lg:grid-cols-5">
-          <div className="flex flex-col gap-6 lg:col-span-2">
+          <div className="*:h-full lg:col-span-7">
+            <RecentCard recent={recent} />
+          </div>
+          <div className="flex flex-col gap-6 lg:col-span-5">
             <BudgetsCard
               budgets={insights.budgets}
               month={period.month ? null : insights.endMonth}
             />
             <BalancesCard accounts={accounts} />
-          </div>
-          <div className="lg:col-span-3">
-            <RecentCard recent={recent} />
           </div>
         </div>
       </div>
@@ -175,10 +175,7 @@ function BalancesCard({ accounts }: { accounts: Account[] }) {
     <Card>
       <CardHeader>
         <p className="text-sm text-muted-foreground">Net balance</p>
-        <Money
-          amount={sumMoney(accounts.map((a) => a.balance))}
-          className="text-3xl font-semibold"
-        />
+        <Money amount={sumMoney(accounts.map((a) => a.balance))} hero className="text-4xl" />
       </CardHeader>
       <CardContent>
         <ul className="flex flex-col gap-3">

@@ -1,5 +1,5 @@
 import type { AppProps } from "next/app";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Hind, IBM_Plex_Mono, Kalam } from "next/font/google";
 import Head from "next/head";
 
 import type { PageWithLayout } from "@/frontend/components/layout/page-layout";
@@ -7,8 +7,11 @@ import { Providers } from "@/frontend/components/providers";
 
 import "@/frontend/styles/globals.css";
 
-const geistSans = Geist({ subsets: ["latin"] });
-const geistMono = Geist_Mono({ subsets: ["latin"] });
+// Hind: body and UI (also covers Devanagari). Plex Mono: amounts, dates, labels.
+// Kalam: page titles, hero amounts and empty-state headings only.
+const hind = Hind({ subsets: ["latin", "devanagari"], weight: ["400", "500", "600", "700"] });
+const plexMono = IBM_Plex_Mono({ subsets: ["latin"], weight: ["400", "500"] });
+const kalam = Kalam({ subsets: ["latin", "devanagari"], weight: ["400", "700"] });
 
 export default function App({ Component, pageProps }: AppProps & { Component: PageWithLayout }) {
   // Layout lives outside the page so the app shell stays mounted between pages.
@@ -23,8 +26,9 @@ export default function App({ Component, pageProps }: AppProps & { Component: Pa
       {/* Font variables on :root so portalled dialogs and menus get them too. */}
       <style jsx global>{`
         :root {
-          --font-geist-sans: ${geistSans.style.fontFamily};
-          --font-geist-mono: ${geistMono.style.fontFamily};
+          --font-hind: ${hind.style.fontFamily};
+          --font-plex-mono: ${plexMono.style.fontFamily};
+          --font-kalam: ${kalam.style.fontFamily};
         }
       `}</style>
       <Providers>

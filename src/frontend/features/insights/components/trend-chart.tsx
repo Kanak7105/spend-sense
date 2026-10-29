@@ -2,8 +2,6 @@ import { Area, AreaChart, CartesianGrid, XAxis, YAxis } from "recharts";
 
 import {
   ChartContainer,
-  ChartLegend,
-  ChartLegendContent,
   ChartTooltip,
   ChartTooltipContent,
   type ChartConfig,
@@ -13,11 +11,14 @@ import type { TrendPoint } from "@/shared/types/insights";
 
 import { monthLabel } from "./month-switcher";
 
-// Colours validated with the dataviz palette script (CVD-safe in both themes).
+// Colours from --chart-income/--chart-expense, validated with the dataviz palette
+// script. Dark mode's pair sits in the 6–8 CVD band, so expense is also dashed.
 const config = {
-  income: { label: "Income", theme: { light: "#0f9b8e", dark: "#14a090" } },
-  expense: { label: "Expenses", theme: { light: "#e34948", dark: "#e8524c" } },
+  income: { label: "Income", color: "var(--chart-income)" },
+  expense: { label: "Expenses", color: "var(--chart-expense)" },
 } satisfies ChartConfig;
+
+const DASH = { income: undefined, expense: "6 4" } as const;
 
 /** 12-month income vs expenses. One shared ₹ axis; crosshair tooltip on hover. */
 export function TrendChart({ data }: { data: TrendPoint[] }) {
@@ -25,9 +26,9 @@ export function TrendChart({ data }: { data: TrendPoint[] }) {
 
   return (
     <figure>
-      <ChartContainer config={config} className="aspect-auto h-64 w-full">
+      <ChartContainer config={config} className="aspect-auto h-64 w-full font-mono">
         <AreaChart data={rows} margin={{ top: 8, right: 8, left: 0, bottom: 0 }}>
-          <CartesianGrid vertical={false} strokeDasharray="3 3" strokeOpacity={0.5} />
+          <CartesianGrid vertical={false} stroke="var(--border)" />
           <XAxis
             dataKey="label"
             tickLine={false}
@@ -59,7 +60,6 @@ export function TrendChart({ data }: { data: TrendPoint[] }) {
               />
             }
           />
-          <ChartLegend content={<ChartLegendContent />} />
           {(["income", "expense"] as const).map((key) => (
             <Area
               key={key}
@@ -67,14 +67,32 @@ export function TrendChart({ data }: { data: TrendPoint[] }) {
               type="monotone"
               stroke={`var(--color-${key})`}
               strokeWidth={2}
-              fill={`var(--color-${key})`}
-              fillOpacity={0.08}
+              strokeDasharray={DASH[key]}
+              fill="none"
               dot={false}
               activeDot={{ r: 4, strokeWidth: 2, stroke: "var(--card)" }}
             />
           ))}
         </AreaChart>
       </ChartContainer>
+      <figcaption className="mt-2 flex justify-center gap-5 font-mono text-xs">
+        {(["income", "expense"] as const).map((key) => (
+          <span key={key} className="flex items-center gap-1.5">
+            <svg width="22" height="6" aria-hidden>
+              <line
+                x1="1"
+                y1="3"
+                x2="21"
+                y2="3"
+                stroke={`var(--chart-${key})`}
+                strokeWidth="2"
+                strokeDasharray={DASH[key] === undefined ? undefined : "4 3"}
+              />
+            </svg>
+            {config[key].label}
+          </span>
+        ))}
+      </figcaption>
       <table className="sr-only">
         <caption>Monthly income and expenses</caption>
         <thead>

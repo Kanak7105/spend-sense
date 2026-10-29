@@ -4,15 +4,30 @@
 
 @custom-variant dark (&:is(.dark *));
 
+/*
+ * "Bahi-khata" theme: red-cloth ledger shell, mustard ledger pages.
+ * Light is "din" (day), dark is "raat" (night). Text pairs were checked for
+ * WCAG AA (body text >= 4.5:1, input borders and focus >= 3:1) in both modes;
+ * chart and heatmap colours went through the dataviz palette validator.
+ */
+
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-  --font-heading: var(--font-geist-sans);
+  --font-sans: var(--font-hind);
+  --font-mono: var(--font-plex-mono);
+  --font-heading: var(--font-hind);
+  /* Kalam: page titles, hero amounts and empty-state headings only. */
+  --font-display: var(--font-kalam);
   --color-income: var(--income);
   --color-expense: var(--expense);
   --color-warning: var(--warning);
+  --color-margin-rule: var(--margin-rule);
+  /* Page ink/paper that stay put inside .shell (which re-points --foreground). */
+  --color-ink: var(--ink);
+  --color-paper: var(--paper);
+  --color-shell: var(--sidebar);
+  --color-shell-foreground: var(--sidebar-foreground);
   --color-heat-0: var(--heat-0);
   --color-heat-1: var(--heat-1);
   --color-heat-2: var(--heat-2);
@@ -48,105 +63,126 @@
   --color-popover: var(--popover);
   --color-card-foreground: var(--card-foreground);
   --color-card: var(--card);
-  --radius-sm: calc(var(--radius) * 0.6);
-  --radius-md: calc(var(--radius) * 0.8);
-  --radius-lg: var(--radius);
-  --radius-xl: calc(var(--radius) * 1.4);
-  --radius-2xl: calc(var(--radius) * 1.8);
-  --radius-3xl: calc(var(--radius) * 2.2);
-  --radius-4xl: calc(var(--radius) * 2.6);
+  /* Ledger pages have square-ish corners: nothing rounder than 4px (pills stay rounded-full). */
+  --radius-sm: 2px;
+  --radius-md: 3px;
+  --radius-lg: 4px;
+  --radius-xl: 4px;
+  --radius-2xl: 4px;
+  --radius-3xl: 4px;
+  --radius-4xl: 4px;
+  /* Borders over shadows. */
+  --shadow-2xs: 0 0 #0000;
+  --shadow-xs: 0 0 #0000;
+  --shadow-sm: 0 0 #0000;
+  --shadow-md: 0 0 #0000;
+  --shadow-lg: 0 0 #0000;
+  --shadow-xl: 0 0 #0000;
+  --shadow-2xl: 0 0 #0000;
 }
 
+/* din — day */
 :root {
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.145 0 0);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.145 0 0);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.145 0 0);
-  --primary: oklch(0.596 0.145 163.225);
-  --primary-foreground: oklch(0.985 0 0);
-  --secondary: oklch(0.97 0 0);
-  --secondary-foreground: oklch(0.205 0 0);
-  --muted: oklch(0.97 0 0);
-  --muted-foreground: oklch(0.556 0 0);
-  --accent: oklch(0.97 0 0);
-  --accent-foreground: oklch(0.205 0 0);
-  --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.922 0 0);
-  --input: oklch(0.922 0 0);
-  --ring: oklch(0.696 0.17 162.48);
-  --chart-1: oklch(0.87 0 0);
-  --chart-2: oklch(0.556 0 0);
-  --chart-3: oklch(0.439 0 0);
-  --chart-4: oklch(0.371 0 0);
-  --chart-5: oklch(0.269 0 0);
-  --radius: 0.625rem;
-  --income: oklch(0.596 0.145 163.225);
-  --expense: oklch(0.586 0.253 17.585);
-  --warning: oklch(0.666 0.179 58.318);
-  /* Chart series (CVD-validated pair) and the spending heatmap's one-hue ramp. */
-  --chart-income: #0f9b8e;
-  --chart-expense: #e34948;
-  --heat-0: oklch(0.97 0 0);
-  --heat-1: #f19389;
-  --heat-2: #ea7268;
-  --heat-3: #e34948;
-  --heat-4: #b8302f;
-  --heat-5: #7f1d1d;
-  --sidebar: oklch(0.985 0 0);
-  --sidebar-foreground: oklch(0.145 0 0);
-  --sidebar-primary: oklch(0.596 0.145 163.225);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.97 0 0);
-  --sidebar-accent-foreground: oklch(0.205 0 0);
-  --sidebar-border: oklch(0.922 0 0);
-  --sidebar-ring: oklch(0.708 0 0);
+  --background: #f3e3b5; /* page (paper) */
+  --foreground: #3a1d0e; /* ink */
+  --card: #f8ecc6; /* surface */
+  --card-foreground: #3a1d0e;
+  --popover: #f8ecc6;
+  --popover-foreground: #3a1d0e;
+  --primary: #8e1b1b; /* shell red */
+  --primary-foreground: #f3e3b5;
+  --secondary: #f8ecc6;
+  --secondary-foreground: #3a1d0e;
+  --muted: #efdca6; /* surface-2 */
+  --muted-foreground: #7a5a3a;
+  --accent: #efdca6;
+  --accent-foreground: #3a1d0e;
+  --destructive: #a3271f;
+  --border: #c9a86a; /* ledger rule */
+  --input: #9a7b45; /* darker than the rule: field edges need 3:1 */
+  --ring: #c0392b;
+  --margin-rule: #c0392b;
+  --ink: #3a1d0e;
+  --paper: #f3e3b5;
+  --radius: 4px;
+  --income: #2e6b3a;
+  --expense: #a3271f;
+  --warning: #875611; /* spec #B7791F darkened: 2.9:1 → 4.9:1 on paper */
+  --chart-1: #3a1d0e;
+  --chart-2: #8e1b1b;
+  --chart-3: #2e6b3a;
+  --chart-4: #b7791f;
+  --chart-5: #7a5a3a;
+  /* Trend chart pair, validated for colour-blind separation (expense also dashed). */
+  --chart-income: #2e6b3a;
+  --chart-expense: #db6745;
+  /* Heatmap: one-hue ramp, paper → shell red (validated, ordinal). */
+  --heat-0: #efdca6;
+  --heat-1: #da9472;
+  --heat-2: #cb6e52;
+  --heat-3: #b4412d;
+  --heat-4: #8e1b1b;
+  --heat-5: #5c1010;
+  /* Shell: sidebar, top bar, bottom nav. */
+  --sidebar: #8e1b1b;
+  --sidebar-foreground: #f3e3b5;
+  --sidebar-primary: #f0c86a; /* active marker on the red cloth */
+  --sidebar-primary-foreground: #3a1d0e;
+  --sidebar-accent: #7a1616; /* shell hover */
+  --sidebar-accent-foreground: #f3e3b5;
+  --sidebar-border: rgb(243 227 181 / 0.4); /* the stitched edge */
+  --sidebar-ring: #f3e3b5;
 }
 
+/* raat — night */
 .dark {
-  --background: oklch(0.145 0 0);
-  --foreground: oklch(0.985 0 0);
-  --card: oklch(0.205 0 0);
-  --card-foreground: oklch(0.985 0 0);
-  --popover: oklch(0.205 0 0);
-  --popover-foreground: oklch(0.985 0 0);
-  --primary: oklch(0.696 0.17 162.48);
-  --primary-foreground: oklch(0.145 0 0);
-  --secondary: oklch(0.269 0 0);
-  --secondary-foreground: oklch(0.985 0 0);
-  --muted: oklch(0.269 0 0);
-  --muted-foreground: oklch(0.708 0 0);
-  --accent: oklch(0.269 0 0);
-  --accent-foreground: oklch(0.985 0 0);
-  --destructive: oklch(0.704 0.191 22.216);
-  --border: oklch(1 0 0 / 10%);
-  --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.596 0.145 163.225);
-  --chart-1: oklch(0.87 0 0);
-  --chart-2: oklch(0.556 0 0);
-  --chart-3: oklch(0.439 0 0);
-  --chart-4: oklch(0.371 0 0);
-  --chart-5: oklch(0.269 0 0);
-  --income: oklch(0.765 0.177 163.223);
-  --expense: oklch(0.712 0.194 13.428);
-  --warning: oklch(0.769 0.188 70.08);
-  --chart-income: #14a090;
-  --chart-expense: #e8524c;
-  --heat-0: oklch(0.269 0 0);
-  --heat-1: #873935;
-  --heat-2: #ad453f;
-  --heat-3: #d4534c;
-  --heat-4: #f07a72;
-  --heat-5: #fab4ae;
-  --sidebar: oklch(0.205 0 0);
-  --sidebar-foreground: oklch(0.985 0 0);
-  --sidebar-primary: oklch(0.696 0.17 162.48);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.269 0 0);
-  --sidebar-accent-foreground: oklch(0.985 0 0);
-  --sidebar-border: oklch(1 0 0 / 10%);
-  --sidebar-ring: oklch(0.556 0 0);
+  --background: #1e0f0a;
+  --foreground: #efe2c0;
+  --card: #2a1610;
+  --card-foreground: #efe2c0;
+  --popover: #2a1610;
+  --popover-foreground: #efe2c0;
+  /* Shell maroon is too dark for buttons and links on the night page, so primary
+     uses the margin red with dark ink text (4.8:1 both ways). */
+  --primary: #d9574a;
+  --primary-foreground: #1e0f0a;
+  --secondary: #2a1610;
+  --secondary-foreground: #efe2c0;
+  --muted: #341c14;
+  --muted-foreground: #b89b73;
+  --accent: #341c14;
+  --accent-foreground: #efe2c0;
+  --destructive: #e07a6e;
+  --border: #5a3a24;
+  --input: #8a6a48;
+  --ring: #d9574a;
+  --margin-rule: #d9574a;
+  --ink: #efe2c0;
+  --paper: #1e0f0a;
+  --income: #7fb38a;
+  --expense: #e07a6e;
+  --warning: #e0a84a;
+  --chart-1: #efe2c0;
+  --chart-2: #d9574a;
+  --chart-3: #7fb38a;
+  --chart-4: #e0a84a;
+  --chart-5: #b89b73;
+  --chart-income: #2b7440;
+  --chart-expense: #d5725a;
+  --heat-0: #341c14;
+  --heat-1: #853423;
+  --heat-2: #a8432c;
+  --heat-3: #c8543c;
+  --heat-4: #e26f5a;
+  --heat-5: #f59d8b;
+  --sidebar: #3a0d0d;
+  --sidebar-foreground: #e9d9a8;
+  --sidebar-primary: #e0a84a;
+  --sidebar-primary-foreground: #1e0f0a;
+  --sidebar-accent: #4d1414;
+  --sidebar-accent-foreground: #e9d9a8;
+  --sidebar-border: rgb(233 217 168 / 0.3);
+  --sidebar-ring: #e9d9a8;
 }
 
 @layer base {
@@ -158,5 +194,37 @@
   }
   html {
     @apply font-sans;
+  }
+}
+
+@layer components {
+  /* Section header: small uppercase mono label over a ledger rule. */
+  .ledger-label {
+    @apply border-b border-border pb-1.5 font-mono text-xs font-medium tracking-wider text-muted-foreground uppercase;
+  }
+  /* Ledger lines between rows. */
+  .ledger-lines > * + * {
+    @apply border-t border-border/70;
+  }
+  /* Sonner toasts: paper slip with the red margin. */
+  .cn-toast {
+    border-left: 2px solid var(--margin-rule) !important;
+    font-family: var(--font-hind);
+  }
+  /*
+   * Red-cloth shell (sidebar, top bar, bottom nav, mobile drawer). Re-points the
+   * text and hover tokens so ordinary components inside read as paper-on-red.
+   * Portalled menus render outside it and keep the paper theme.
+   */
+  .shell {
+    --foreground: var(--sidebar-foreground);
+    --muted-foreground: color-mix(in srgb, var(--sidebar-foreground) 78%, transparent);
+    --muted: var(--sidebar-accent);
+    --accent: var(--sidebar-accent);
+    --accent-foreground: var(--sidebar-accent-foreground);
+    --border: var(--sidebar-border);
+    --ring: var(--sidebar-ring);
+    background-color: var(--sidebar);
+    color: var(--sidebar-foreground);
   }
 }

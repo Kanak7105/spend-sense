@@ -4,7 +4,7 @@ import { PROMPT_LABELS } from "@/shared/schemas/assistant";
 
 import { useAssistant } from "../assistant-context";
 
-import { AnswerBody, AnswerSkeleton, PromptChips } from "./assistant-ui";
+import { AnswerReceipt, AnswerSkeleton, PromptChips } from "./assistant-ui";
 
 /** The full conversation for the /assistant page: messages above, question chips below. */
 export function AssistantChat() {
@@ -26,22 +26,22 @@ export function AssistantChat() {
         {messages.map((m) => (
           <div key={m.id} className="contents">
             <UserBubble text={PROMPT_LABELS[m.promptId]} />
-            <div className="max-w-[95%] rounded-2xl rounded-tl-sm bg-muted p-4 sm:max-w-[80%]">
-              <AnswerBody message={m} />
+            <div className="max-w-[95%] sm:max-w-[80%]">
+              <AnswerReceipt message={m} />
             </div>
           </div>
         ))}
         {pending && (
           <>
             <UserBubble text={PROMPT_LABELS[pending]} />
-            <AnswerSkeleton className="w-full max-w-[95%] rounded-2xl rounded-tl-sm bg-muted p-4 sm:max-w-[80%]" />
+            <AnswerSkeleton className="w-full max-w-[95%] rounded-sm border border-dashed bg-card p-4 sm:max-w-[80%]" />
           </>
         )}
         <div ref={endRef} />
       </div>
 
       {/* Sticks above the mobile tab bar so the chips stay reachable in a long conversation. */}
-      <div className="sticky bottom-20 max-h-[40svh] overflow-y-auto rounded-xl border bg-background/95 p-4 shadow-sm backdrop-blur md:bottom-4">
+      <div className="sticky bottom-20 max-h-[40svh] overflow-y-auto rounded-sm border border-l-2 border-l-margin-rule bg-card p-4 md:bottom-4">
         <PromptChips />
       </div>
     </div>
@@ -50,7 +50,7 @@ export function AssistantChat() {
 
 function UserBubble({ text }: { text: string }) {
   return (
-    <p className="ml-auto max-w-[85%] rounded-2xl rounded-tr-sm bg-primary px-3 py-2 text-sm text-primary-foreground">
+    <p className="ml-auto max-w-[85%] rounded-sm bg-primary px-3 py-2 text-sm text-primary-foreground">
       {text}
     </p>
   );

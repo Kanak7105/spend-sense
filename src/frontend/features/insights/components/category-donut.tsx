@@ -68,7 +68,7 @@ export function CategoryDonut({ categories }: { categories: CategorySlice[] }) {
                   const slice = active ? (payload?.[0]?.payload as Slice | undefined) : undefined;
                   if (!slice) return null;
                   return (
-                    <div className="rounded-lg border bg-background px-3 py-2 text-xs shadow-md">
+                    <div className="rounded-sm border border-l-2 border-l-margin-rule bg-card px-3 py-2 font-mono text-xs">
                       <p className="font-medium">{slice.name}</p>
                       <p className="text-muted-foreground tabular-nums">
                         {formatMoney(slice.total)} · {Math.round(slice.share * 100)}%
@@ -95,7 +95,7 @@ export function CategoryDonut({ categories }: { categories: CategorySlice[] }) {
           </ChartContainer>
           <div className="pointer-events-none absolute inset-0 flex flex-col items-center justify-center">
             <span className="text-xs text-muted-foreground">Spent</span>
-            <span className="text-sm font-semibold tabular-nums">
+            <span className="font-mono text-sm font-semibold tabular-nums">
               {formatMoney(total, { compact: true })}
             </span>
           </div>
@@ -106,7 +106,7 @@ export function CategoryDonut({ categories }: { categories: CategorySlice[] }) {
             <li key={s.category_id ?? "none"} className="flex items-center gap-3 text-sm">
               <CategoryIcon icon={s.icon} color={s.color} size="sm" />
               <span className="min-w-0 flex-1 truncate">{s.name}</span>
-              <span className="text-xs text-muted-foreground tabular-nums">
+              <span className="font-mono text-xs text-muted-foreground tabular-nums">
                 {Math.round(s.share * 100)}%
               </span>
               <span className="w-24 text-right font-medium tabular-nums">

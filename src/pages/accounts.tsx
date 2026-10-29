@@ -48,12 +48,9 @@ const AccountsPage: PageWithLayout<Props> = ({ accounts }) => {
         />
       ) : (
         <div className="flex flex-col gap-8">
-          <div className="rounded-xl border bg-card p-5">
+          <div className="rounded-sm border border-l-2 border-l-margin-rule bg-card p-5">
             <p className="text-sm text-muted-foreground">Net balance</p>
-            <Money
-              amount={sumMoney(active.map((a) => a.balance))}
-              className="text-3xl font-semibold"
-            />
+            <Money amount={sumMoney(active.map((a) => a.balance))} hero className="text-4xl" />
           </div>
 
           <section className="grid gap-3 sm:grid-cols-2">

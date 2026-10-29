@@ -43,7 +43,7 @@ export function CategoryList({ categories }: { categories: Category[] }) {
       </div>
       {(["expense", "income"] as const).map((type) => (
         <TabsContent key={type} value={type} className="mt-4">
-          <ul className="divide-y rounded-xl border bg-card">
+          <ul className="divide-y rounded-sm border border-l-2 border-l-margin-rule bg-card">
             {categories
               .filter((c) => c.type === type)
               .map((category) => (

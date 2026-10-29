@@ -58,7 +58,9 @@ export function TransactionList({ transactions, accounts, categories }: Props) {
           return (
             <section key={date}>
               <div className="mb-2 flex items-center justify-between px-1 text-sm">
-                <h2 className="font-medium text-muted-foreground">{formatDay(date)}</h2>
+                <h2 className="font-mono text-xs font-medium tracking-wider text-muted-foreground uppercase">
+                  {formatDay(date)}
+                </h2>
                 {net !== 0 && (
                   <Money
                     amount={net}
@@ -67,7 +69,7 @@ export function TransactionList({ transactions, accounts, categories }: Props) {
                   />
                 )}
               </div>
-              <ul className="divide-y rounded-xl border bg-card">
+              <ul className="divide-y rounded-sm border border-l-2 border-l-margin-rule bg-card">
                 {items.map((t) => (
                   <TransactionItem
                     key={t.id}

@@ -8,9 +8,9 @@ export default function Document() {
           name="description"
           content="Track expenses, budgets and savings goals — built for ₹."
         />
-        <meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff" />
-        <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#0a0a0a" />
-        <link rel="icon" href="/favicon.ico" />
+        <meta name="theme-color" media="(prefers-color-scheme: light)" content="#8e1b1b" />
+        <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#3a0d0d" />
+        <link rel="icon" type="image/png" href="/brand/khata-light.png" />
       </Head>
       <body className="antialiased">
         <Main />

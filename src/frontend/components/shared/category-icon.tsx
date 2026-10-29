@@ -119,11 +119,11 @@ export function CategoryIcon({
   return (
     <span
       className={cn(
-        "flex shrink-0 items-center justify-center rounded-full",
+        "flex shrink-0 items-center justify-center rounded-full text-foreground ring-1 ring-border",
         size === "sm" ? "size-7" : "size-9",
         className,
       )}
-      style={{ backgroundColor: `${tint}22`, color: tint }}
+      style={{ backgroundColor: `${tint}33` }}
     >
       <Icon className={size === "sm" ? "size-3.5" : "size-4"} />
     </span>

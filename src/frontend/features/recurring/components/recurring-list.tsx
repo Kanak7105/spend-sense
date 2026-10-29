@@ -42,7 +42,7 @@ export function RecurringList({ rules, accounts, categories }: Props) {
 
   return (
     <>
-      <ul className="divide-y rounded-xl border bg-card">
+      <ul className="divide-y rounded-sm border border-l-2 border-l-margin-rule bg-card">
         {rules.map((rule) => (
           <RecurringRow
             key={rule.id}

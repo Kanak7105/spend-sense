@@ -81,7 +81,7 @@ const TransactionsPage: PageWithLayout<Props> = ({
         <div className="flex flex-col gap-6">
           <TransactionFilters filters={filters} accounts={accounts} categories={categories} />
           {total > 0 && (
-            <div className="flex flex-wrap items-center justify-between gap-3 rounded-xl border bg-card px-4 py-3 text-sm">
+            <div className="flex flex-wrap items-center justify-between gap-3 rounded-sm border border-l-2 border-l-margin-rule bg-card px-4 py-3 text-sm">
               <div className="flex flex-wrap gap-x-6 gap-y-1">
                 <span className="text-muted-foreground">
                   {totals.count} {isFiltered ? "matching" : ""} transaction

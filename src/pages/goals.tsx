@@ -47,7 +47,7 @@ const GoalsPage: PageWithLayout<Props> = ({ goals }) => {
         />
       ) : (
         <div className="flex flex-col gap-6">
-          <div className="rounded-xl border bg-card p-5">
+          <div className="rounded-sm border border-l-2 border-l-margin-rule bg-card p-5">
             <p className="text-sm text-muted-foreground">Saved towards goals</p>
             <p className="text-2xl font-semibold">
               <Money amount={sumMoney(goals.map((g) => g.saved_amount))} />

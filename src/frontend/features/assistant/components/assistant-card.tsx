@@ -5,11 +5,11 @@ import { useEffect } from "react";
 
 import { Button } from "@/frontend/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/frontend/components/ui/card";
-import { PROMPT_IDS, PROMPT_LABELS, type PromptId } from "@/shared/schemas/assistant";
+import type { PromptId } from "@/shared/schemas/assistant";
 
 import { useAssistant } from "../assistant-context";
 
-import { AnswerBody, PromptChips, RemainingBadge } from "./assistant-ui";
+import { PromptChips, RemainingBadge } from "./assistant-ui";
 
 /** A short selection for the dashboard; the full list is on the /assistant page. */
 const CARD_PROMPTS: PromptId[] = [
@@ -20,11 +20,10 @@ const CARD_PROMPTS: PromptId[] = [
   "grade-my-month",
 ];
 
-/** Dashboard entry point: a chip opens the /assistant page and asks it there. */
+/** Dashboard entry point: a chip opens the /assistant page and asks it there (answers show only there). */
 export function AssistantCard() {
   const router = useRouter();
-  const { loadUsage, messages } = useAssistant();
-  const latest = messages.at(-1);
+  const { loadUsage } = useAssistant();
 
   useEffect(() => loadUsage(), [loadUsage]);
 
@@ -48,17 +47,9 @@ export function AssistantCard() {
           onPick={(id) => void router.push({ pathname: "/assistant", query: { ask: id } })}
         />
 
-        {latest && (
-          <div className="rounded-lg border bg-muted/40 p-4">
-            <p className="mb-2 text-sm font-medium">{PROMPT_LABELS[latest.promptId]}</p>
-            <AnswerBody message={latest} />
-          </div>
-        )}
-
         <Button asChild variant="link" size="sm" className="h-auto self-start px-0">
           <Link href="/assistant">
-            {PROMPT_IDS.length - CARD_PROMPTS.length} more questions
-            {messages.length > 1 && ` · ${messages.length} answers`} <ArrowRight />
+            More questions <ArrowRight />
           </Link>
         </Button>
       </CardContent>

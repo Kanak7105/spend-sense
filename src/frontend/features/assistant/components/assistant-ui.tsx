@@ -1,6 +1,7 @@
 import { History } from "lucide-react";
 import ReactMarkdown from "react-markdown";
 
+import { Receipt } from "@/frontend/components/shared/receipt";
 import { Badge } from "@/frontend/components/ui/badge";
 import { Button } from "@/frontend/components/ui/button";
 import { Skeleton } from "@/frontend/components/ui/skeleton";
@@ -87,17 +88,22 @@ export function AnswerSkeleton({ className }: { className?: string }) {
   );
 }
 
-export function AnswerBody({ message }: { message: AssistantMessage }) {
+/** An answer as a "hisaab" receipt slip. */
+export function AnswerReceipt({ message }: { message: AssistantMessage }) {
   return (
-    <>
-      <div className="text-sm leading-relaxed [&_li]:mt-1 [&_ol]:list-decimal [&_ol]:pl-5 [&_p]:mt-2 [&_p:first-child]:mt-0 [&_strong]:font-semibold [&_ul]:list-disc [&_ul]:pl-5">
+    <Receipt
+      title={PROMPT_LABELS[message.promptId]}
+      footer={
+        message.cached && (
+          <span className="flex items-center gap-1.5">
+            <History className="size-3.5" /> Saved answer (data unchanged), no question used
+          </span>
+        )
+      }
+    >
+      <div className="leading-relaxed [&_li]:mt-1 [&_ol]:list-decimal [&_ol]:pl-5 [&_p]:mt-2 [&_p:first-child]:mt-0 [&_strong]:font-semibold [&_ul]:list-disc [&_ul]:pl-5">
         <ReactMarkdown>{message.content}</ReactMarkdown>
       </div>
-      {message.cached && (
-        <p className="mt-2 flex items-center gap-1.5 text-xs text-muted-foreground">
-          <History className="size-3.5" /> Saved answer (data unchanged), no question used
-        </p>
-      )}
-    </>
+    </Receipt>
   );
 }

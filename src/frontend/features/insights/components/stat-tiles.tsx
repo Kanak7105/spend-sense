@@ -1,7 +1,7 @@
 import { ArrowDownRight, ArrowUpRight, Minus } from "lucide-react";
 
 import { Card, CardContent } from "@/frontend/components/ui/card";
-import { formatMoney } from "@/frontend/lib/format";
+import { formatHeroMoney } from "@/frontend/lib/format";
 import { cn } from "@/frontend/lib/utils";
 import type { MonthTotals } from "@/shared/types/insights";
 
@@ -46,17 +46,17 @@ export function StatTiles({
   const tiles: Tile[] = [
     {
       label: "Income",
-      value: formatMoney(totals.income),
+      value: formatHeroMoney(totals.income),
       delta: delta(totals.income, previous.income, against),
       tone: "income",
     },
     {
       label: "Expenses",
-      value: formatMoney(totals.expense),
+      value: formatHeroMoney(totals.expense),
       delta: delta(totals.expense, previous.expense, against),
       tone: "expense",
     },
-    { label: "Net", value: formatMoney(net) },
+    { label: "Net", value: formatHeroMoney(net) },
     {
       label: "Savings rate",
       value: savingsRate === null ? "—" : `${savingsRate}%`,
@@ -68,7 +68,7 @@ export function StatTiles({
       {tiles.map((tile) => (
         <Card key={tile.label} className="py-0">
           <CardContent className="flex flex-col gap-1 p-4">
-            <span className="flex items-center gap-2 text-sm text-muted-foreground">
+            <span className="flex items-center gap-2 font-mono text-xs tracking-wider text-muted-foreground uppercase">
               {tile.tone && (
                 <span
                   aria-hidden
@@ -80,7 +80,7 @@ export function StatTiles({
               )}
               {tile.label}
             </span>
-            <span className="truncate text-xl font-semibold tabular-nums sm:text-2xl">
+            <span className="truncate font-display text-2xl font-bold sm:text-3xl">
               {tile.value}
             </span>
             {tile.delta && (

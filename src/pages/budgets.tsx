@@ -58,7 +58,7 @@ const BudgetsPage: PageWithLayout<Props> = ({ month, isCurrentMonth, budgets, av
       <PageTitle title="Budgets" />
       <div className="mb-6 flex flex-wrap items-end justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-semibold tracking-tight">Budgets</h1>
+          <h1 className="font-display text-3xl font-bold">Budgets</h1>
           <p className="mt-1 text-sm text-muted-foreground">
             Monthly limits per category. Alerts at 80% and 100%.
           </p>
@@ -78,7 +78,7 @@ const BudgetsPage: PageWithLayout<Props> = ({ month, isCurrentMonth, budgets, av
         />
       ) : (
         <div className="flex flex-col gap-6">
-          <div className="rounded-xl border bg-card p-5">
+          <div className="rounded-sm border border-l-2 border-l-margin-rule bg-card p-5">
             <div className="flex flex-wrap items-end justify-between gap-2">
               <div>
                 <p className="text-sm text-muted-foreground">Spent across budgets</p>
