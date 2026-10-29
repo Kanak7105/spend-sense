@@ -1,0 +1,6 @@
+.next
+node_modules
+package-lock.json
+src/shared/types/database.ts
+src/frontend/components/ui
+supabase/.temp
