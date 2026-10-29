@@ -3,6 +3,8 @@ import { z } from "zod";
 import { id, isoDate, optionalText, positiveAmount } from "@/shared/lib/validation";
 import { Constants } from "@/shared/types/database";
 
+import type { BudgetAlert } from "./budgets";
+
 export const TRANSACTION_TYPES = Constants.public.Enums.transaction_type;
 export type TransactionType = (typeof TRANSACTION_TYPES)[number];
 
@@ -39,6 +41,9 @@ export const transactionSchema = z
 export type TransactionInput = z.input<typeof transactionSchema>;
 /** Parsed values are themselves valid input, so the client can send them as-is. */
 export type TransactionOutput = z.output<typeof transactionSchema>;
+
+/** Returned by create/update so the client can toast a budget warning. */
+export type TransactionWriteResult = { budgetAlert: BudgetAlert | null };
 
 // ---------------------------------------------------------------- list filters
 

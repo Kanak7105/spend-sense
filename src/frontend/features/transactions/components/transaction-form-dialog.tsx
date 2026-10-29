@@ -28,6 +28,7 @@ import { Textarea } from "@/frontend/components/ui/textarea";
 import type { Account } from "@/shared/schemas/accounts";
 import type { Category } from "@/shared/schemas/categories";
 import { localToday } from "@/frontend/lib/format";
+import { notifyBudgetAlert } from "@/frontend/features/budgets/notify";
 import { handleActionError } from "@/frontend/lib/form";
 import { useRefresh } from "@/frontend/lib/use-refresh";
 
@@ -134,6 +135,7 @@ function TransactionForm({
       : await createTransaction(values);
     if (!result.ok) return handleActionError(result, form.setError);
     toast.success(transaction ? "Transaction updated" : "Transaction added");
+    notifyBudgetAlert(result.data.budgetAlert);
     onDone();
     await refresh();
   }

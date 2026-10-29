@@ -242,7 +242,7 @@ export type Database = {
           interval_count?: number
           is_active?: boolean
           last_run_at?: string | null
-          next_run_date: string
+          next_run_date?: string
           start_date?: string
           to_account_id?: string | null
           type: Database["public"]["Enums"]["transaction_type"]
@@ -522,7 +522,69 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      adjust_goal_saved: {
+        Args: { p_delta: number; p_goal_id: string }
+        Returns: number
+      }
+      budget_progress: {
+        Args: { p_month: string }
+        Returns: {
+          amount: number
+          budget_id: string
+          category_id: string
+          color: string
+          icon: string
+          name: string
+          spent: number
+        }[]
+      }
+      category_totals: {
+        Args: {
+          p_from: string
+          p_to: string
+          p_type?: Database["public"]["Enums"]["transaction_type"]
+        }
+        Returns: {
+          category_id: string
+          color: string
+          icon: string
+          name: string
+          total: number
+        }[]
+      }
+      daily_totals: {
+        Args: { p_from: string; p_to: string }
+        Returns: {
+          day: string
+          expense: number
+          income: number
+        }[]
+      }
+      monthly_totals: {
+        Args: { p_from: string; p_to: string }
+        Returns: {
+          expense: number
+          income: number
+          month: string
+        }[]
+      }
+      process_due_recurring: { Args: { p_today?: string }; Returns: number }
+      transaction_totals: {
+        Args: {
+          p_account?: string
+          p_category?: string
+          p_from?: string
+          p_q?: string
+          p_to?: string
+          p_type?: Database["public"]["Enums"]["transaction_type"]
+          p_uncategorized?: boolean
+        }
+        Returns: {
+          expense: number
+          income: number
+          tx_count: number
+        }[]
+      }
     }
     Enums: {
       account_type: "cash" | "bank" | "upi" | "card"
