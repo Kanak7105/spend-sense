@@ -53,7 +53,7 @@ export function apiRoute<Authed extends boolean = true>(
 
     try {
       const result = await fn({ req, res, supabase, user: user as SessionUser, body: req.body });
-      return res.status(result.ok ? 200 : 400).json(result);
+      return res.status(result.ok ? 200 : (result.status ?? 400)).json(result);
     } catch (error) {
       console.error(`[api] ${method} ${req.url}`, error);
       return res.status(500).json({ ok: false, error: "Something went wrong. Please try again." });

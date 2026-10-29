@@ -2,7 +2,7 @@ import type { ActionResult } from "@/shared/lib/action-result";
 
 /** Call one of our API routes; always resolves to an ActionResult. */
 export async function apiRequest<T = undefined>(
-  method: "POST" | "PATCH" | "DELETE",
+  method: "GET" | "POST" | "PATCH" | "DELETE",
   url: string,
   body?: unknown,
 ): Promise<ActionResult<T>> {

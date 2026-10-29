@@ -21,8 +21,8 @@ export const NAV_ITEMS: NavItem[] = [
   { href: "/categories", label: "Categories", icon: Shapes },
 ];
 
-/** Shown as tabs in the mobile bar; the rest live under "More". */
-export const MOBILE_TABS = ["/dashboard", "/transactions", "/budgets"];
+/** Tabs in the mobile bar (two each side of the add button); every page is also in the menu. */
+export const MOBILE_TABS = ["/dashboard", "/transactions", "/budgets", "/goals"];
 
 export function isActive(pathname: string, href: string) {
   return pathname === href || pathname.startsWith(`${href}/`);

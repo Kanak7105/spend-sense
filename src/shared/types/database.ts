@@ -56,6 +56,54 @@ export type Database = {
         }
         Relationships: []
       }
+      ai_responses: {
+        Row: {
+          content: string
+          created_at: string
+          data_hash: string
+          id: string
+          period: string
+          prompt_id: string
+          user_id: string
+        }
+        Insert: {
+          content: string
+          created_at?: string
+          data_hash: string
+          id?: string
+          period: string
+          prompt_id: string
+          user_id?: string
+        }
+        Update: {
+          content?: string
+          created_at?: string
+          data_hash?: string
+          id?: string
+          period?: string
+          prompt_id?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      ai_usage: {
+        Row: {
+          count: number
+          day: string
+          user_id: string
+        }
+        Insert: {
+          count?: number
+          day?: string
+          user_id?: string
+        }
+        Update: {
+          count?: number
+          day?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       budgets: {
         Row: {
           amount: number
@@ -552,6 +600,7 @@ export type Database = {
           total: number
         }[]
       }
+      consume_ai_credit: { Args: { p_limit: number }; Returns: number }
       daily_totals: {
         Args: { p_from: string; p_to: string }
         Returns: {

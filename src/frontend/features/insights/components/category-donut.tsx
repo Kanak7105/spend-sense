@@ -56,60 +56,66 @@ export function CategoryDonut({ categories }: { categories: CategorySlice[] }) {
   );
 
   return (
-    <div className="flex flex-col items-center gap-6 sm:flex-row">
-      <div className="relative size-44 shrink-0">
-        <ChartContainer config={config} className="aspect-square size-44">
-          <PieChart>
-            <ChartTooltip
-              content={({ active, payload }) => {
-                const slice = active ? (payload?.[0]?.payload as Slice | undefined) : undefined;
-                if (!slice) return null;
-                return (
-                  <div className="rounded-lg border bg-background px-3 py-2 text-xs shadow-md">
-                    <p className="font-medium">{slice.name}</p>
-                    <p className="text-muted-foreground tabular-nums">
-                      {formatMoney(slice.total)} · {Math.round(slice.share * 100)}%
-                    </p>
-                  </div>
-                );
-              }}
-            />
-            <Pie
-              data={slices}
-              dataKey="total"
-              nameKey="name"
-              innerRadius="62%"
-              outerRadius="100%"
-              stroke="var(--card)"
-              strokeWidth={2}
-              isAnimationActive={false}
-            >
-              {slices.map((s) => (
-                <Cell key={s.category_id ?? "none"} fill={s.color} />
-              ))}
-            </Pie>
-          </PieChart>
-        </ChartContainer>
-        <div className="pointer-events-none absolute inset-0 flex flex-col items-center justify-center">
-          <span className="text-xs text-muted-foreground">Spent</span>
-          <span className="text-sm font-semibold tabular-nums">
-            {formatMoney(total, { compact: true })}
-          </span>
-        </div>
-      </div>
-
-      <ul className="flex w-full flex-col gap-2.5">
-        {slices.map((s) => (
-          <li key={s.category_id ?? "none"} className="flex items-center gap-3 text-sm">
-            <CategoryIcon icon={s.icon} color={s.color} size="sm" />
-            <span className="min-w-0 flex-1 truncate">{s.name}</span>
-            <span className="text-xs text-muted-foreground tabular-nums">
-              {Math.round(s.share * 100)}%
+    // Side by side only when the card itself is wide enough (it's narrow in the
+    // dashboard's 2/5 column even on large screens).
+    <div className="@container">
+      <div className="flex flex-col items-center gap-6 @lg:flex-row">
+        <div className="relative size-44 shrink-0">
+          <ChartContainer config={config} className="aspect-square size-44">
+            <PieChart>
+              <ChartTooltip
+                content={({ active, payload }) => {
+                  const slice = active ? (payload?.[0]?.payload as Slice | undefined) : undefined;
+                  if (!slice) return null;
+                  return (
+                    <div className="rounded-lg border bg-background px-3 py-2 text-xs shadow-md">
+                      <p className="font-medium">{slice.name}</p>
+                      <p className="text-muted-foreground tabular-nums">
+                        {formatMoney(slice.total)} · {Math.round(slice.share * 100)}%
+                      </p>
+                    </div>
+                  );
+                }}
+              />
+              <Pie
+                data={slices}
+                dataKey="total"
+                nameKey="name"
+                innerRadius="62%"
+                outerRadius="100%"
+                stroke="var(--card)"
+                strokeWidth={2}
+                isAnimationActive={false}
+              >
+                {slices.map((s) => (
+                  <Cell key={s.category_id ?? "none"} fill={s.color} />
+                ))}
+              </Pie>
+            </PieChart>
+          </ChartContainer>
+          <div className="pointer-events-none absolute inset-0 flex flex-col items-center justify-center">
+            <span className="text-xs text-muted-foreground">Spent</span>
+            <span className="text-sm font-semibold tabular-nums">
+              {formatMoney(total, { compact: true })}
             </span>
-            <span className="w-24 text-right font-medium tabular-nums">{formatMoney(s.total)}</span>
-          </li>
-        ))}
-      </ul>
+          </div>
+        </div>
+
+        <ul className="flex w-full min-w-0 flex-col gap-2.5">
+          {slices.map((s) => (
+            <li key={s.category_id ?? "none"} className="flex items-center gap-3 text-sm">
+              <CategoryIcon icon={s.icon} color={s.color} size="sm" />
+              <span className="min-w-0 flex-1 truncate">{s.name}</span>
+              <span className="text-xs text-muted-foreground tabular-nums">
+                {Math.round(s.share * 100)}%
+              </span>
+              <span className="w-24 text-right font-medium tabular-nums">
+                {formatMoney(s.total)}
+              </span>
+            </li>
+          ))}
+        </ul>
+      </div>
     </div>
   );
 }

@@ -15,6 +15,7 @@ import { PageTitle } from "@/frontend/components/shared/page-title";
 import { Button } from "@/frontend/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/frontend/components/ui/card";
 import { ACCOUNT_TYPE_META } from "@/frontend/features/accounts/meta";
+import { AssistantCard } from "@/frontend/features/assistant/components/assistant-card";
 import { BudgetBar } from "@/frontend/features/budgets/components/budget-bar";
 import { CategoryDonut } from "@/frontend/features/insights/components/category-donut";
 import { MonthSwitcher, monthLabel } from "@/frontend/features/insights/components/month-switcher";
@@ -77,6 +78,8 @@ const DashboardPage: PageWithLayout<Props> = ({ insights, accounts, recent }) =>
           previous={insights.previous}
           against={period.month ? "last month" : `previous ${periodDays(period)} days`}
         />
+
+        <AssistantCard />
 
         <div className="grid gap-6 lg:grid-cols-5">
           <Card className="lg:col-span-3">
