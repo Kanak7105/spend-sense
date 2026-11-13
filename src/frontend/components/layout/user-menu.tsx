@@ -1,6 +1,7 @@
 import { LogOut } from "lucide-react";
 import { useRouter } from "next/router";
 
+import { InstallAppMenuItem } from "@/frontend/components/shared/install-app";
 import { Avatar, AvatarFallback, AvatarImage } from "@/frontend/components/ui/avatar";
 import { Button } from "@/frontend/components/ui/button";
 import {
@@ -62,6 +63,7 @@ export function UserMenu({ viewer, compact = false }: { viewer: Viewer; compact?
           {email}
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
+        <InstallAppMenuItem />
         <DropdownMenuItem onSelect={() => void handleSignOut()}>
           <LogOut /> Sign out
         </DropdownMenuItem>

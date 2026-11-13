@@ -1,6 +1,7 @@
 import { ChartPie, PiggyBank, ReceiptIndianRupee, Smartphone } from "lucide-react";
 import Link from "next/link";
 
+import { InstallAppButton } from "@/frontend/components/shared/install-app";
 import { Logo } from "@/frontend/components/shared/logo";
 import { ThemeToggle } from "@/frontend/components/shared/theme-toggle";
 import { Button } from "@/frontend/components/ui/button";
@@ -59,6 +60,7 @@ export default function LandingPage() {
             <Link href="/login">I have an account</Link>
           </Button>
         </div>
+        <InstallAppButton variant="ghost" className="mt-3" />
 
         <div className="mt-20 grid w-full gap-4 text-left sm:grid-cols-2 lg:grid-cols-4">
           {features.map(({ icon: Icon, title, body }) => (
