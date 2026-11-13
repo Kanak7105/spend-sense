@@ -4,6 +4,7 @@ import Head from "next/head";
 
 import type { PageWithLayout } from "@/frontend/components/layout/page-layout";
 import { Providers } from "@/frontend/components/providers";
+import { PwaSetup } from "@/frontend/components/shared/install-app";
 
 import "@/frontend/styles/globals.css";
 
@@ -32,6 +33,7 @@ export default function App({ Component, pageProps }: AppProps & { Component: Pa
         }
       `}</style>
       <Providers>
+        <PwaSetup />
         <div className="flex min-h-svh flex-col">
           {getLayout(<Component {...pageProps} />, pageProps)}
         </div>
